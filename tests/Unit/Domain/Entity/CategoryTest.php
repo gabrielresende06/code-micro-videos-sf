@@ -7,6 +7,8 @@ namespace Tests\Unit\Domain\Entity;
 use Core\Domain\Entity\Category;
 use PHPUnit\Framework\TestCase;
 
+use function PHPUnit\Framework\assertEquals;
+
 class CategoryTest extends TestCase {
 
     public function testAttributes()
@@ -45,4 +47,42 @@ class CategoryTest extends TestCase {
         $this->assertFalse($category->isActive);
     }
 
+    public function testUpdate()
+    {
+        $uuid = 'uuid.value';
+
+        $category = new Category(
+            name: 'New Category',
+            id: $uuid,
+            description: 'New desc',
+            isActive: true
+        );
+
+        $category->update(
+            name: 'Updated name',
+            description: 'Updated desc'
+        );
+
+        $this->assertEquals('Updated name', $category->name);
+        $this->assertEquals('Updated desc', $category->description);
+    }
+
+    public function testUpdateWithSameDescription()
+    {
+        $uuid = 'uuid.value';
+
+        $category = new Category(
+            name: 'New Category',
+            id: $uuid,
+            description: 'New desc',
+            isActive: true
+        );
+
+        $category->update(
+            name: 'Updated name',
+        );
+
+        $this->assertEquals('Updated name', $category->name);
+        $this->assertEquals('New desc', $category->description);
+    }
 }

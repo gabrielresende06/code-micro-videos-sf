@@ -26,4 +26,13 @@ class Category
         $this->isActive = false;
         return $this;
     }
+
+    public function update(
+        string $name,
+        ?string $description = null
+    ): self {
+        $this->name = $name;
+        $this->description = $description ?? $this->description;
+        return $this;
+    }
 }
