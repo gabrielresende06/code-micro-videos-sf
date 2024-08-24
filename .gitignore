@@ -3,3 +3,5 @@
 *.log
 .composer
 .idea
+phpunit.xml.bak
+.phpunit.result.cache
