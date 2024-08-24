@@ -1,4 +1,8 @@
 <?php
 
-//phpinfo();
-echo 'test two';
+use Core\Test;
+
+require '../vendor/autoload.php';
+
+$test = new Test();
+var_dump($test->foo());
