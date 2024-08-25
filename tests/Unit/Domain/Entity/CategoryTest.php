@@ -89,7 +89,6 @@ class CategoryTest extends TestCase {
 
     public function testExceptionName()
     {
-        $this->expectException('');
         $this->expectExceptionObject(new EntityValidationException('Invalid name'));
         new Category(
             name: 'Ne',
