@@ -26,6 +26,7 @@ class CategoryTest extends TestCase {
         $this->assertEquals('New Category', $category->name);
         $this->assertEquals('New desc', $category->description);
         $this->assertTrue( $category->isActive);
+        $this->assertNotEmpty($category->createdAt());
 
     }
 
@@ -59,7 +60,8 @@ class CategoryTest extends TestCase {
             name: 'New Category',
             id: $uuid,
             description: 'New desc',
-            isActive: true
+            isActive: true,
+            createdAt: '2024-08-26 19:48:00'
         );
 
         $category->update(
@@ -70,6 +72,7 @@ class CategoryTest extends TestCase {
         $this->assertEquals($uuid, $category->getId());
         $this->assertEquals('Updated name', $category->name);
         $this->assertEquals('Updated desc', $category->description);
+        $this->assertEquals('2024-08-26 19:48:00', $category->createdAt());
     }
 
     public function testUpdateWithSameDescription()

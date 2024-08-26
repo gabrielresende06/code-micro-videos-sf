@@ -11,12 +11,18 @@ class Category
 {
     use MagicMethods;
 
+    /**
+     * @throws EntityValidationException
+     * @throws \Exception
+     */
     public function __construct(
         protected string $name,
         protected Uuid|string $id = '',
         protected string $description = '',
-        protected bool $isActive = true
+        protected bool $isActive = true,
+        protected \DateTime|string $createdAt = ''
     ) {
+        $this->createdAt = $this->createdAt ? new \DateTime($this->createdAt): new \DateTime();
         $this->id = $this->id ? new Uuid($this->id) : Uuid::random();
         $this->validate();
     }
@@ -32,6 +38,9 @@ class Category
         return $this;
     }
 
+    /**
+     * @throws EntityValidationException
+     */
     public function update(
         string $name,
         ?string $description = null
@@ -45,11 +54,12 @@ class Category
     /**
      * @throws EntityValidationException
      */
-    public function validate()
+    public function validate(): void
     {
         DomainValidation::notNull($this->name, exceptionMessage: 'Invalid name.');
         DomainValidation::strMaxLength($this->name, exceptionMessage: 'Invalid name.');
         DomainValidation::strMinLength($this->name, exceptionMessage: 'Invalid name.');
         DomainValidation::strCanBeNullAndMaxLength($this->description, exceptionMessage: 'Invalid description.');
     }
+
 }
