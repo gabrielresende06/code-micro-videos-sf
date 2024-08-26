@@ -95,4 +95,13 @@ class CategoryTest extends TestCase {
             description: 'New Desc'
         );
     }
+
+    public function testExceptionDescription()
+    {
+        $this->expectExceptionObject(new EntityValidationException('Invalid description.'));
+        new Category(
+            name: 'Category Test',
+            description: random_bytes(99999)
+        );
+    }
 }

@@ -48,10 +48,6 @@ class Category
         DomainValidation::notNull($this->name, exceptionMessage: 'Invalid name.');
         DomainValidation::strMaxLength($this->name, exceptionMessage: 'Invalid name.');
         DomainValidation::strMinLength($this->name, exceptionMessage: 'Invalid name.');
-        DomainValidation::strCanBeNullAndMaxLength($this->description);
-
-//        if (!empty($this->description) && (strlen($this->description) > 255 || strlen($this->description) < 3)) {
-//            throw new EntityValidationException("Invalid description");
-//        }
+        DomainValidation::strCanBeNullAndMaxLength($this->description, exceptionMessage: 'Invalid description.');
     }
 }
