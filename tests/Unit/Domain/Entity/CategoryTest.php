@@ -8,6 +8,8 @@ use Core\Domain\Entity\Category;
 use Core\Domain\Exception\EntityValidationException;
 use PHPUnit\Framework\TestCase;
 
+use Ramsey\Uuid\Uuid;
+
 use function PHPUnit\Framework\assertEquals;
 
 class CategoryTest extends TestCase {
@@ -20,6 +22,7 @@ class CategoryTest extends TestCase {
             isActive: true
         );
 
+        $this->assertNotEmpty($category->getId());
         $this->assertEquals('New Category', $category->name);
         $this->assertEquals('New desc', $category->description);
         $this->assertTrue( $category->isActive);
@@ -50,7 +53,7 @@ class CategoryTest extends TestCase {
 
     public function testUpdate()
     {
-        $uuid = 'uuid.value';
+        $uuid = (string) Uuid::uuid4()->toString();
 
         $category = new Category(
             name: 'New Category',
@@ -64,13 +67,14 @@ class CategoryTest extends TestCase {
             description: 'Updated desc'
         );
 
+        $this->assertEquals($uuid, $category->getId());
         $this->assertEquals('Updated name', $category->name);
         $this->assertEquals('Updated desc', $category->description);
     }
 
     public function testUpdateWithSameDescription()
     {
-        $uuid = 'uuid.value';
+        $uuid = (string) Uuid::uuid4()->toString();
 
         $category = new Category(
             name: 'New Category',
